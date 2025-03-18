@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#E6DE9B"
+    android:backgroundTint="#82C5E4">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="15dp"
+        app:srcCompat="@drawable/vector"
+        android:id="@+id/back2"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="200dp"
+            app:srcCompat="@drawable/group_462__1_"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="100dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/customize"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="들뜨고 흥분돼요"
+            android:textSize="15dp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="273dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/customize"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="들뜨는 이 기분 오래오래 유지하자구요!"
+            android:textSize="20dp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-40dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+
+    </LinearLayout>
+
+
+</FrameLayout>
+
+
+

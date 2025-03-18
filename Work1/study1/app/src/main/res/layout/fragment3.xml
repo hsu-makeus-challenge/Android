@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#E6DE9B"
+    android:backgroundTint="#BBADD5">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="15dp"
+        app:srcCompat="@drawable/vector"
+        android:id="@+id/back3"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="200dp"
+            app:srcCompat="@drawable/group_462__2_"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="100dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/customize"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="평범한 하루였어요"
+            android:textSize="15dp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="273dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/customize"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="잔잔했던 오늘 하루 내일은 즐거운 일이 생길지도 몰라요!"
+            android:textSize="20dp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-40dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+
+    </LinearLayout>
+
+
+</FrameLayout>
+
+
+
