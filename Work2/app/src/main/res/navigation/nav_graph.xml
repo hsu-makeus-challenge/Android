@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@+id/fragment_emotion">
+
+    <fragment
+        android:id="@+id/fragment_emotion"
+        android:name="com.example.androidstudy.EmotionFragment"
+        android:label="EmotionFragment" />
+
+    <fragment
+        android:id="@+id/fragment_happy"
+        android:name="com.example.androidstudy.HappyFragment"
+        android:label="HappyFragment"   />
+
+    <fragment
+        android:id="@+id/fragment_exite"
+        android:name="com.example.androidstudy.ExiteFragment"
+        android:label="ExiteFragment"   />
+
+    <fragment
+        android:id="@+id/fragment_normal"
+        android:name="com.example.androidstudy.NormalFragment"
+        android:label="NormalFragment"   />
+
+    <fragment
+        android:id="@+id/fragment_anxious"
+        android:name="com.example.androidstudy.AnxiousFragment"
+        android:label="AnxiousFragment"   />
+
+    <fragment
+        android:id="@+id/fragment_angry"
+        android:name="com.example.androidstudy.AngryFragment"
+        android:label="AngryFragment"   />
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.example.androidstudy.HomeFragment"
+        android:label="HomeFragment" />
+
+
+    <fragment
+        android:id="@+id/fragment_social"
+        android:name="com.example.androidstudy.SocialFragment"
+        android:label="SocialFragment" />
+
+
+    <fragment
+        android:id="@+id/fragment_record"
+        android:name="com.example.androidstudy.RecordFragment"
+        android:label="RecordFragment" />
+
+
+    <fragment
+        android:id="@+id/fragment_mypage"
+        android:name="com.example.androidstudy.MypageFragment"
+        android:label="MypageFragment" />
+
+
+</navigation>
