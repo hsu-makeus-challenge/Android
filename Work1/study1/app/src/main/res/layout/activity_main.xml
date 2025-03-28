@@ -1,24 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_container"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_vertical"
-    android:background="#E2D5AF"
-    android:backgroundTint="#F0E8D0"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
+    android:layout_gravity="center"
+    tools:context="com.example.study1.MainActivity">
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="15dp"
-        app:srcCompat="@drawable/vector"
-        />
+        android:id="@+id/paper_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/paper_bg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +35,6 @@
             android:textSize="25dp" />
 
         <TextView
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#EDE3C6"
@@ -55,8 +52,6 @@
             android:textSize="10dp"
             android:text="선택한 감정우표를 기반으로 맞춤형 질문이 배달됩니다." />
 
-
-
         <ImageView
             android:id="@+id/imageView0"
             android:layout_width="match_parent"
@@ -72,6 +67,7 @@
             android:text="더없이 행복한 하루였어요"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/customize"/>
+
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
@@ -87,6 +83,7 @@
             android:text="들뜨고 흥분돼요"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/customize"/>
+
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
@@ -102,6 +99,7 @@
             android:text="평범한 하루였어요"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/customize"/>
+
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
@@ -117,6 +115,7 @@
             android:text="생각이 많아지고 불안해요"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/customize"/>
+
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="match_parent"
@@ -134,5 +133,12 @@
             android:fontFamily="@font/customize"/>
 
     </LinearLayout>
+
+    <!-- 추가: Fragment를 표시할 FrameLayout -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"/>
 
 </FrameLayout>

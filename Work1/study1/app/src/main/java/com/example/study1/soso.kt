@@ -8,16 +8,16 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 
 
-class fragment5 : Fragment() {
+class soso : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment5, container, false)
+        val view = inflater.inflate(R.layout.fragment3, container, false)
 
 
-        val backButton: ImageView = view.findViewById(R.id.back5)
+        val backButton: ImageView = view.findViewById(R.id.back3)
 
 
         backButton.setOnClickListener {

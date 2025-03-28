@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,23 +19,23 @@ class MainActivity : AppCompatActivity() {
 
         imageView0.setOnClickListener {
 
-            replaceFragment(fragment1())
+            replaceFragment(happy())
         }
         imageView1.setOnClickListener {
 
-            replaceFragment(fragment2())
+            replaceFragment(excitement())
         }
         imageView2.setOnClickListener {
 
-            replaceFragment(fragment3())
+            replaceFragment(soso())
         }
         imageView3.setOnClickListener {
 
-            replaceFragment(fragment4())
+            replaceFragment(nervous())
         }
         imageView4.setOnClickListener {
 
-            replaceFragment(fragment5())
+            replaceFragment(angry())
         }
     }
 
@@ -48,4 +47,3 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 }
-
