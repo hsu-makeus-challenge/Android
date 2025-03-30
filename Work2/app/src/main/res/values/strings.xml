@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">week2_MIN2EO</string>
+    <string name="home">home</string>
+    <string name="diary">diary</string>
+    <string name="calendar">calendar</string>
+    <string name="user">user</string>
+
+    <string name="MIN2EO">MIN2EO</string>
+    <string name="date">날짜</string>
+    <string name="ment">멘트</string>
+</resources>
