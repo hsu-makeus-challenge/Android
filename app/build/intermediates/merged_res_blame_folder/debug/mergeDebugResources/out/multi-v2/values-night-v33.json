@@ -1,0 +1,28 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.study2.app-mergeDebugResources-32:/values-night-v33/values-night-v33.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\yang2\\AndroidStudioProjects\\Study2\\app\\src\\main\\res\\values-night-v33\\themes.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "59",
+                        "endLines": "7",
+                        "endColumns": "12",
+                        "endOffsets": "357"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "311"
+                    }
+                }
+            ]
+        }
+    ]
+}

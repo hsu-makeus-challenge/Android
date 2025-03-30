@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">Study2</string>
+    <string name="splash_image">스플래시 이미지</string>
+    <style name="Theme.Study2" parent="Theme.AppCompat.NoActionBar">
+        
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/black</item> 
+        <item name="android:statusBarColor">@android:color/black</item> 
+        <item name="android:navigationBarColor">@android:color/black</item> 
+    </style>
+</resources>
