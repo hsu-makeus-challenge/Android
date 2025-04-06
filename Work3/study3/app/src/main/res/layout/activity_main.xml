@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+
+    <LinearLayout
+        android:id="@+id/music_playback_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_color"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/song_title"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_weight="1"
+            android:text="제목  가수"
+            android:textColor="@android:color/black"
+            android:textSize="10dp" />
+        <ImageView
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:src="@drawable/before"
+
+            android:layout_gravity="right"
+            android:foregroundGravity="right"
+            />
+        <ImageView
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:src="@drawable/start"
+
+            android:layout_gravity="right"
+            android:foregroundGravity="right"
+            />
+        <ImageView
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:src="@drawable/next"
+
+            android:layout_gravity="right"
+            android:foregroundGravity="right"
+            />
+
+        <ImageView
+            android:id="@+id/listimage"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:src="@drawable/songs"
+
+            android:layout_gravity="right"
+            android:foregroundGravity="right"
+            />
+
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:menu="@menu/bottom_navigation"
+        app:itemIconTint="@color/gray_color"
+        app:itemTextColor="@color/gray_color"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
