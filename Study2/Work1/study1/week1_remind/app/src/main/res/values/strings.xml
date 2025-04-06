@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">week1_remind</string>
+    <string name="text1">오늘 하루는 어땠나요?</string>
+    <string name="text2">감정우표를 선택해주세요</string>
+    <string name="text3">선택한 감정우표를 기반으로 맞춤형 질문이 배달됩니다.</string>
+
+    <string name="yello_text">더없이 행복한 하루였어요</string>
+    <string name="blue_text">들뜨고 흥분돼요</string>
+    <string name="purple_text">평범한 하루였어요</string>
+    <string name="green_text">생각이 많아지고 불안해요</string>
+    <string name="red_text">부글부글 화가 나요</string>
+
+    <string name="yellow_face">yellow_face</string>
+    <string name="blue_face">blue_face</string>
+    <string name="purple_face">purple_face</string>
+    <string name="green_face">green_face</string>
+    <string name="red_face">red_face</string>
+    <string name="go_back">go_back</string>
+    <string name="title_activity_second">Second_Activity</string>
+
+</resources>

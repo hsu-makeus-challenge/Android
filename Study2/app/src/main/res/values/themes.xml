@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.Study2" parent="Theme.AppCompat.NoActionBar">
+        <!-- 액션 바 숨기기 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/black</item> <!-- 배경을 까만색으로 설정 -->
+        <item name="android:statusBarColor">@android:color/black</item> <!-- 상태 바 색상도 까만색으로 설정 -->
+        <item name="android:navigationBarColor">@android:color/black</item> <!-- 네비게이션 바 색상 설정 -->
+    </style>
+</resources>

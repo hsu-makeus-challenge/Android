@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Study2" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Android 12 이상에서 시스템 스플래시 비활성화 -->
+        <item name="android:windowSplashScreenAnimationDuration">0</item>
+        <item name="android:windowSplashScreenBehavior">icon_preferred</item>
+    </style>
+</resources>

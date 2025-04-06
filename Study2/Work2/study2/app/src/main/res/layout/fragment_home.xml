@@ -1,0 +1,63 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/black"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="Musinsa"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="슈즈 대전 최대 80% 할인"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/black"
+            android:paddingTop="7dp"
+            android:text="추천    브랜드    발매    랭킹    세일    슈즈대전    우먼즈FW"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/cloth" />
+
+        <TextView
+            android:layout_width="128dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:text="고프코어 스타일 트레이닝 팬츠 추천"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+</FrameLayout>
+
+
+
+
+
+
+
+
+
