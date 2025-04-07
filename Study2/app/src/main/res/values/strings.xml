@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">Study2</string>
-    <string name="splash_image">스플래시 이미지</string>
+    <string name="app_name">study.2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
