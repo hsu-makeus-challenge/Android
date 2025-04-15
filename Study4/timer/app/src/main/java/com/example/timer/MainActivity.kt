@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // 초기화 버튼
         binding.btnClear.setOnClickListener {
             clearStopwatch()
         }
@@ -55,11 +56,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun clearStopwatch() {
         if (isRunning) {
-            // Start → Clear: 실행 중일 때는 초기화만
+            job?.cancel()
+            isRunning = false
             timeMillis = 0L
             updateTimerText(timeMillis)
+            binding.btnStart.text = "Start"
         } else {
-            // Pause → Clear: 멈춘 상태에서 초기화
             timeMillis = 0L
             updateTimerText(timeMillis)
             binding.btnStart.text = "Start"
