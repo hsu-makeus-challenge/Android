@@ -1,57 +1,52 @@
 package com.example.flo
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.example.flo.databinding.FragmentHomeBinding
+
+import android.util.Log
 
 class HomeFragment : Fragment() {
 
-    lateinit var binding: FragmentHomeBinding
-    private lateinit var bannerAdapter: BannerVPAdapter
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        bannerAdapter = BannerVPAdapter(getBannerList())
-        binding.homeBannerVp.adapter = bannerAdapter
-        binding.homeBannerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
-        // 초기 위치 중앙쯤으로 지정
-        val startPosition = Int.MAX_VALUE / 2
-        binding.homeBannerVp.setCurrentItem(startPosition - (startPosition % getBannerList().size), false)
-
-        startAutoScroll()
-
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    private fun getBannerList(): List<Int> {
-        return listOf(
-            R.drawable.img_home_viewpager_exp,
-            R.drawable.img_home_viewpager_exp2,
-            R.drawable.img_home_viewpager_exp3
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // home_album_01 클릭 시 AlbumFragment로 이동
+        binding.homeAlbum01Iv.setOnClickListener {
+            Log.d("HomeFragment", "앨범 클릭됨")
+            val albumFragment = AlbumFragment()
+
+            val bundle = Bundle().apply {
+                putString("title", "Perfect Day")
+                putString("singer", "소란")
+                putInt("imageResId", R.drawable.img_album_exp2)
+            }
+            albumFragment.arguments = bundle
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, albumFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+
     }
 
-    private fun startAutoScroll() {
-        val handler = Handler(Looper.getMainLooper())
-        val runnable = object : Runnable {
-            override fun run() {
-                val nextItem = binding.homeBannerVp.currentItem + 1
-                binding.homeBannerVp.setCurrentItem(nextItem, true)
-                handler.postDelayed(this, 3000)
-            }
-        }
-        handler.postDelayed(runnable, 3000)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

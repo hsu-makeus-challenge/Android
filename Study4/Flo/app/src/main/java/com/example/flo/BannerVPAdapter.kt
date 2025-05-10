@@ -1,28 +1,23 @@
 package com.example.flo
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.example.flo.databinding.ItemBannerBinding
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.fragment.app.Fragment
 
-class BannerVPAdapter(private val bannerList: List<Int>) : RecyclerView.Adapter<BannerVPAdapter.BannerViewHolder>() {
 
-    inner class BannerViewHolder(private val binding: ItemBannerBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(imageRes: Int) {
-            binding.bannerImgIv.setImageResource(imageRes)
-        }
+class BannerVPAdapter(fragment : Fragment) : FragmentStateAdapter(fragment) {
+
+    private val fragmentList : ArrayList<Fragment> = ArrayList()
+
+    override fun getItemCount(): Int {
+        return fragmentList.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
-        val binding = ItemBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return BannerViewHolder(binding)
+    override fun createFragment(position: Int): Fragment {
+        return fragmentList[position]
     }
 
-    override fun onBindViewHolder(holder: BannerViewHolder, position: Int) {
-        val realPosition = position % bannerList.size
-        holder.bind(bannerList[realPosition])
+    fun addFragment(fragment: Fragment) {
+        fragmentList.add(fragment)
+        notifyItemInserted(fragmentList.size-1)
     }
-
-    override fun getItemCount(): Int = Int.MAX_VALUE
 }

@@ -10,10 +10,25 @@
 
         <FrameLayout
             android:id="@+id/main_frm"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/main_player_cl"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <SeekBar
+            android:id="@+id/main_miniplayer_progress_sb"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/main_player_cl"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@null"
+            android:max="100000"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:progress="0"
+            app:layout_constraintBottom_toTopOf="@+id/main_player_cl"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,6 +101,7 @@
 
 
                 <ImageView
+                    android:id="@+id/main_list_iv"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginHorizontal="15dp"

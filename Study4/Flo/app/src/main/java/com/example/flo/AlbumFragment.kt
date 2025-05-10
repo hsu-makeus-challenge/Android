@@ -1,10 +1,10 @@
 package com.example.flo
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.flo.databinding.FragmentAlbumBinding
 
@@ -40,7 +40,7 @@ class AlbumFragment : Fragment() {
                 .commit()
         }
 
-        // 내 취향 MIX 버튼 클릭 시 이미지 변경 (ImageView 하나만 사용하는 방식)
+        // 내 취향 MIX 버튼 클릭 시 이미지 변경
         binding.songMixTg.setOnClickListener {
             isMixSelected = !isMixSelected
 
@@ -53,27 +53,34 @@ class AlbumFragment : Fragment() {
             binding.songMixTg.setImageResource(imageRes)
         }
 
-        // 곡 클릭 시 Toast 출력
+        // 클릭 시 SongActivity로 이동하도록 수정
         binding.songLalacLayout.setOnClickListener {
-            Toast.makeText(activity, "Perfect Day", Toast.LENGTH_SHORT).show()
+            goToSongActivity("Perfect Day", "소란")
         }
 
         binding.songFluLayout.setOnClickListener {
-            Toast.makeText(activity, "Perfect Day(Inst)", Toast.LENGTH_SHORT).show()
+            goToSongActivity("Perfect Day (Inst)", "소란")
         }
 
         binding.songCoinLayout.setOnClickListener {
-            Toast.makeText(activity, "가을목이", Toast.LENGTH_SHORT).show()
+            goToSongActivity("가을목이", "소란")
         }
 
         binding.songSpringLayout.setOnClickListener {
-            Toast.makeText(activity, "목소리", Toast.LENGTH_SHORT).show()
+            goToSongActivity("목소리", "소란")
         }
 
         binding.songCelebrityLayout.setOnClickListener {
-            Toast.makeText(activity, "이제 나와라 고백", Toast.LENGTH_SHORT).show()
+            goToSongActivity("이제 나와라 고백", "소란")
         }
 
         return binding.root
+    }
+
+    private fun goToSongActivity(title: String, singer: String) {
+        val intent = Intent(requireContext(), SongActivity::class.java)
+        intent.putExtra("title", title)
+        intent.putExtra("singer", singer)
+        startActivity(intent)
     }
 }
