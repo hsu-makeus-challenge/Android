@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 상단 제목 영역 -->
+    <TextView
+        android:id="@+id/chartTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FLO 차트"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/chartSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="최근 24시간 집계, FLO 최고 인기곡 차트!"
+        android:textSize="14sp"
+        android:textColor="#808080"
+        android:layout_marginBottom="16dp" />
+
+    <!-- 전체 보기 버튼 -->
+    <TextView
+        android:id="@+id/viewAllButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전체보기 >"
+        android:textColor="@android:color/holo_blue_light"
+        android:layout_gravity="end"
+        android:layout_marginBottom="8dp" />
+
+    <!-- 차트 목록 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chartRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/rounded_background"
+        android:clipToPadding="false" />
+
+</LinearLayout>

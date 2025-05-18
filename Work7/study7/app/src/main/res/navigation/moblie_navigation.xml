@@ -1,0 +1,29 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:label="홈"
+        tools:layout="@layout/fragment_home1" />
+
+
+
+    <fragment
+        android:id="@+id/fragment_somelse"
+        android:label="둘러보기"
+        tools:layout="@layout/fragment_somelse" />
+
+
+    <fragment
+        android:id="@+id/fragment_search"
+        android:label="검색"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/fragment_stack"
+        android:label="보관함"
+        tools:layout="@layout/fragment_stack" />
+</navigation>
