@@ -1,0 +1,7 @@
+.gradle/
+.idea/
+build/
+caches/
+daemon/
+*.lock
+*.iml

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Flo.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
+        <!-- 기본 텍스트 속성 -->
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimaryGrey</item>
+
+        <!-- 선택됐을 때 텍스트는 TabLayout 속성(tabSelectedTextColor)에서 지정함 -->
+        <!-- 필요 시 여기에 직접 지정도 가능 -->
+    </style>
+</resources>

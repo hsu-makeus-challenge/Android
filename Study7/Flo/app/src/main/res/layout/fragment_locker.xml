@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 상단 타이틀 -->
+    <TextView
+        android:id="@+id/locker_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="보관함"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="55dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- 로그인 -->
+    <TextView
+        android:id="@+id/locker_login_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그인"
+        android:textSize="15sp"
+        android:textColor="@color/song_player"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="@id/locker_title_tv"
+        app:layout_constraintBottom_toBottomOf="@id/locker_title_tv"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 탭 -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/locker_content_tb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:tabTextAppearance="@style/TabTextStyle"
+        app:tabSelectedTextColor="@color/song_player"
+        app:tabTextColor="@color/colorPrimaryGrey"
+        app:tabIndicatorColor="@color/song_player"
+        app:tabIndicatorFullWidth="false"
+        app:tabRippleColor="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/locker_title_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 전체선택 / 전체듣기 / 편집 -->
+    <LinearLayout
+        android:id="@+id/locker_select_row"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintTop_toBottomOf="@id/locker_content_tb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 전체선택 -->
+        <ImageView
+            android:id="@+id/locker_select_all_img_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/btn_select_off"
+            android:layout_marginEnd="4dp"/>
+
+        <TextView
+            android:id="@+id/locker_select_all_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전체선택"
+            android:textColor="@color/colorPrimaryGrey"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"/>
+
+        <!-- 전체듣기 -->
+        <ImageView
+            android:id="@+id/locker_play_all_img_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icon_browse_arrow_right"
+            android:layout_marginEnd="4dp"/>
+
+        <TextView
+            android:id="@+id/locker_play_all_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전체듣기"
+            android:textColor="@color/colorPrimaryGrey"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"/>
+
+        <!-- Spacer -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <!-- 저장(편집) -->
+        <ImageView
+            android:id="@+id/locker_save_img_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/btn_editbar_addplaylist"
+            android:layout_marginEnd="4dp"/>
+
+        <TextView
+            android:id="@+id/locker_edit_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="편집"
+            android:textColor="@color/colorPrimaryGrey"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+    <!-- 좋아요한 곡이 없습니다 텍스트 -->
+    <TextView
+        android:id="@+id/locker_empty_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="좋아요한 곡이 없습니다."
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryGrey"
+        android:visibility="gone"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/locker_select_row"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 곡 리스트 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/locker_empty_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
