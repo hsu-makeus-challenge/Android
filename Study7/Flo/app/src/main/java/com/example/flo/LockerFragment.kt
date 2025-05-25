@@ -1,11 +1,13 @@
 package com.example.flo
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +16,8 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.collections.addAll
+import kotlin.text.clear
 
 class LockerFragment : Fragment() {
 
@@ -35,6 +39,7 @@ class LockerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateLoginStatus()
 
         setupTabs()
         initRecyclerView()
@@ -61,7 +66,6 @@ class LockerFragment : Fragment() {
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                // 실제로는 탭 전환 시 필터링 또는 화면 전환
                 if (tab?.position == 0) loadLikedSongs()
                 else showToast("미구현된 탭입니다")
             }
@@ -132,8 +136,12 @@ class LockerFragment : Fragment() {
 
     private fun loadLikedSongs() {
         val db = SongDatabase.getInstance(requireContext())
+        val userId = requireContext()
+            .getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+            .getInt("jwt", -1)
+
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            val likedSongs = db.songDao().getLikedSongs()
+            val likedSongs = if (userId != -1) db.songDao().getLikedSongsByUser(userId) else emptyList()
             withContext(Dispatchers.Main) {
                 lockerList.clear()
                 lockerList.addAll(likedSongs)
@@ -192,5 +200,37 @@ class LockerFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun updateLoginStatus() {
+        val isLoggedIn = getUserId() != -1
+
+        binding.lockerLoginTv.text = if (isLoggedIn) "로그아웃" else "로그인"
+
+        binding.lockerLoginTv.setOnClickListener {
+            if (isLoggedIn) {
+                requireContext()
+                    .getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+                    .edit().remove("jwt").apply()
+
+                Toast.makeText(requireContext(), "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
+                binding.lockerLoginTv.text = "로그인"
+                loadLikedSongs() // 로그아웃 시 좋아요 목록도 초기화
+            } else {
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun getUserId(): Int {
+        return requireContext()
+            .getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+            .getInt("jwt", -1)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateLoginStatus()
     }
 }

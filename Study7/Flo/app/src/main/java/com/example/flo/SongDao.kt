@@ -1,10 +1,10 @@
 package com.example.flo
 
 import androidx.room.*
-import com.example.flo.Song
 
 @Dao
 interface SongDao {
+
     @Insert
     fun insertAll(songs: List<Song>)
 
@@ -22,6 +22,9 @@ interface SongDao {
 
     @Query("UPDATE SongTable SET isLike = 0 WHERE isLike = 1")
     fun updateAllToUnliked()
+
+    @Query("SELECT * FROM SongTable WHERE id IN (SELECT songId FROM LikeSong WHERE userId = :userId)")
+    fun getLikedSongsByUser(userId: Int): List<Song>
 
     @Update
     fun update(song: Song)

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.flo.databinding.ActivitySongBinding
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -35,21 +36,41 @@ class SongActivity : AppCompatActivity() {
         binding = ActivitySongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.songLikeIv.isEnabled = false
+
         CoroutineScope(Dispatchers.IO).launch {
-            val songId = getSharedPreferences("song", MODE_PRIVATE).getInt("songId", -1)
+            val songId = intent.getIntExtra("songId", -1)
+            val songListJson = intent.getStringExtra("songList")
+
             val db = SongDatabase.getInstance(this@SongActivity)
-            songs = db.songDao().getSongs().toMutableList()
-            val loadedSong = db.songDao().getSongById(songId)
 
-            loadedSong?.let { loaded ->
-                nowPos = songs.indexOfFirst { it.id == loaded.id }
+            // songList가 전달되었는지 확인 후 파싱하거나 DB에서 전체 목록 가져오기
+            songs = if (!songListJson.isNullOrEmpty()) {
+                val type = object : TypeToken<MutableList<Song>>() {}.type
+                gson.fromJson(songListJson, type)
+            } else {
+                db.songDao().getSongs().toMutableList()
+            }
 
+            // songList에서 먼저 찾고 없으면 DB에서 다시 찾기
+            val loadedSong = songs.find { it.id == songId } ?: db.songDao().getSongById(songId)
+
+            if (loadedSong == null) {
                 withContext(Dispatchers.Main) {
-                    song = loaded
-                    setSongInfo(song)
-                    initSeekBar()
-                    setPlayerStatus(song.isPlaying)
+                    Toast.makeText(this@SongActivity, "노래 정보 불러오기 실패", Toast.LENGTH_SHORT).show()
+                    finish()
                 }
+                return@launch
+            }
+
+            nowPos = songs.indexOfFirst { it.id == loadedSong.id }
+
+            withContext(Dispatchers.Main) {
+                song = loadedSong
+                setSongInfo(song)
+                initSeekBar()
+                setPlayerStatus(song.isPlaying)
+                binding.songLikeIv.isEnabled = true
             }
         }
 
@@ -106,7 +127,6 @@ class SongActivity : AppCompatActivity() {
             songs[nowPos] = updatedSong
         }
 
-        // 좋아요 옆 버튼 클릭 시 다음 곡으로 전환 + 토스트 출력
         binding.songUnlikeIv.setOnClickListener {
             if (nowPos < songs.size - 1) {
                 nowPos++

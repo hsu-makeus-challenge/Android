@@ -21,13 +21,27 @@ class MainActivity : AppCompatActivity() {
     private var isPlaying = false
     private var timer: Timer? = null
 
+    private fun isLoggedIn(): Boolean {
+        val prefs = getSharedPreferences("auth", MODE_PRIVATE)
+        val jwt = prefs.getInt("jwt", -1)
+        return jwt != -1
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (!isLoggedIn()) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initDummyAlbums()
-        initDummySongs() // Room DB에 초기 더미 데이터 삽입
+        initDummySongs()
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -40,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainListIv.setOnClickListener {
             val intent = Intent(this, SongActivity::class.java)
-            intent.putExtra("songId", song.id)
+            intent.putExtra("songId", song.id) // songId 넘겨주는 것 유지
             startActivity(intent)
             overridePendingTransition(R.anim.slide_up, R.anim.none)
         }
@@ -136,6 +150,10 @@ class MainActivity : AppCompatActivity() {
         binding.mainMiniplayerProgressSb.progress = (currentSecond * 100000) / totalSecond
 
         setPlayerStatus(true)
+
+        // songId 저장
+        val prefs = getSharedPreferences("song", MODE_PRIVATE)
+        prefs.edit().putInt("songId", song.id).apply()
     }
 
     override fun onStart() {
@@ -184,7 +202,6 @@ class MainActivity : AppCompatActivity() {
 
             currentSecond = song.second
             totalSecond = song.playTime
-
             isPlaying = false
             song = song.copy(isPlaying = false)
 

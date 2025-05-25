@@ -1,8 +1,8 @@
 package com.example.flo
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.ColumnInfo
 
 @Entity(tableName = "SongTable")
 data class Song(

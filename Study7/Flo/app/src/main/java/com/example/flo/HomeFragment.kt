@@ -3,6 +3,7 @@ package com.example.flo
 import android.content.Intent
 import android.os.*
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.flo.databinding.FragmentHomeBinding
@@ -51,29 +52,45 @@ class HomeFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 val albumAdapter = AlbumRVAdapter(albums)
 
-                albumAdapter.setOnItemClickListener(object : AlbumRVAdapter.OnItemClickListener {
-                    override fun onItemClick(album: Album) {
-                        val albumFragment = AlbumFragment()
-                        val bundle = Bundle().apply {
-                            putInt("albumId", album.id)
-                            putString("title", album.title)
-                            putString("singer", album.singer)
-                            putInt("imageResId", album.coverImg)
-                        }
-                        albumFragment.arguments = bundle
+                albumAdapter.setOnPlayClickListener(object : AlbumRVAdapter.OnPlayClickListener {
+                    override fun onPlayClick(album: Album) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val db = SongDatabase.getInstance(requireContext())
+                            val songs = db.songDao().getSongsByAlbum(album.id)
+                            val firstSong = songs.firstOrNull()
 
-                        requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(R.id.main_frm, albumFragment)
-                            .addToBackStack(null)
-                            .commit()
+                            if (firstSong != null) {
+                                withContext(Dispatchers.Main) {
+                                    val intent = Intent(requireContext(), SongActivity::class.java)
+                                    intent.putExtra("songId", firstSong.id)
+                                    startActivity(intent)
+                                }
+                            } else {
+                                withContext(Dispatchers.Main) {
+                                    Toast.makeText(requireContext(), "앨범에 수록곡이 없습니다", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
                     }
                 })
 
                 albumAdapter.setOnPlayClickListener(object : AlbumRVAdapter.OnPlayClickListener {
                     override fun onPlayClick(album: Album) {
-                        val intent = Intent(requireContext(), SongActivity::class.java)
-                        intent.putExtra("albumId", album.id)
-                        startActivity(intent)
+                        val db = SongDatabase.getInstance(requireContext())!!
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val songs = db.songDao().getSongsByAlbum(album.id)
+                            val firstSongId = songs.firstOrNull()?.id
+
+                            withContext(Dispatchers.Main) {
+                                if (firstSongId != null) {
+                                    val intent = Intent(requireContext(), SongActivity::class.java)
+                                    intent.putExtra("songId", firstSongId)
+                                    startActivity(intent)
+                                } else {
+                                    Toast.makeText(requireContext(), "수록곡이 없습니다", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
                     }
                 })
 
