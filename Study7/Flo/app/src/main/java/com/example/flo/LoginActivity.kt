@@ -27,23 +27,22 @@ class LoginActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, emailDomains)
         binding.loginDirectInputEt.setAdapter(adapter)
 
-        // 드롭다운 수동 표시
         binding.loginDirectInputEt.setOnClickListener {
             binding.loginDirectInputEt.showDropDown()
         }
 
-        // 2. 로그인 버튼 클릭 시 login() 호출
+        // 2. 로그인 버튼 클릭
         binding.loginSignInBtn.setOnClickListener {
             login()
         }
 
-        // 3. 회원가입 화면 이동
+        // 3. 회원가입 이동
         binding.loginSignUpTv.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
-        // 4. 비밀번호 보기 토글
+        // 4. 비밀번호 토글
         var passwordVisible = false
         binding.loginHidePasswordIv.setOnClickListener {
             passwordVisible = !passwordVisible
@@ -55,11 +54,11 @@ class LoginActivity : AppCompatActivity() {
             binding.loginPasswordEt.setSelection(binding.loginPasswordEt.text.length)
         }
 
+        // 5. X 버튼 눌러 종료
         binding.loginCloseIv.setOnClickListener {
             finish()
             overridePendingTransition(R.anim.none, R.anim.slide_down)
         }
-
     }
 
     private fun login() {
@@ -67,7 +66,6 @@ class LoginActivity : AppCompatActivity() {
         val domain = binding.loginDirectInputEt.text.toString().trim()
         val pwd = binding.loginPasswordEt.text.toString()
 
-        // 입력값 검증
         if (id.isEmpty() || domain.isEmpty()) {
             Toast.makeText(this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show()
             return
@@ -86,7 +84,6 @@ class LoginActivity : AppCompatActivity() {
         val email = "$id@$domain"
         val songDB = SongDatabase.getInstance(this)!!
 
-        // 코루틴으로 DB 호출
         lifecycleScope.launch(Dispatchers.IO) {
             val user = songDB.userDao().getUser(email, pwd)
 
@@ -104,14 +101,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun saveJwt(jwt: Int) {
         val spf = getSharedPreferences("auth", MODE_PRIVATE)
-        val editor = spf.edit()
-        editor.putInt("jwt", jwt)
-        editor.apply()
+        spf.edit().putInt("jwt", jwt).apply()
     }
 
     private fun startMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish() // 로그인 후 로그인 액티비티 종료
+        finish()
     }
 }

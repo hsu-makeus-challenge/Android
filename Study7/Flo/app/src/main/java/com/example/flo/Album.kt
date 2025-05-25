@@ -8,5 +8,7 @@ data class Album(
     @PrimaryKey val id: Int, // 자동 생성 X
     val title: String,
     val singer: String,
-    val coverImg: Int // drawable 리소스 ID
+    val coverImg: Int,
+    val info: String,
+    val isLike: Boolean = false
 )

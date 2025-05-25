@@ -15,4 +15,10 @@ interface AlbumDao {
 
     @Query("SELECT * FROM AlbumTable WHERE id = :albumId")
     suspend fun getAlbumById(albumId: Int): Album?
+
+    @Query("SELECT * FROM AlbumTable WHERE id IN (SELECT albumId FROM LikeAlbum WHERE userId = :userId)")
+    fun getLikedAlbumsByUser(userId: Int): List<Album>
+
+    @Update
+    fun update(album: Album)
 }

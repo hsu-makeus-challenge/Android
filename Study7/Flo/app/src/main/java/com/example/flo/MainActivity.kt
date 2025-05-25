@@ -235,11 +235,11 @@ class MainActivity : AppCompatActivity() {
     private fun initDummyAlbums() {
         val db = SongDatabase.getInstance(this)!!
         val albums = listOf(
-            Album(1, "IU 5집", "아이유", R.drawable.img_album_exp2),
-            Album(2, "Next Level", "에스파", R.drawable.img_album_exp),
-            Album(3, "Butter", "BTS", R.drawable.img_album_exp),
-            Album(4, "Weekend", "태연", R.drawable.img_album_exp2),
-            Album(5, "Bloom", "TheBoyz", R.drawable.img_album_exp)
+            Album(1, "IU 5집", "아이유", R.drawable.img_album_exp2, info = "2021.05.25 | 댄스 팝"),
+            Album(2, "Next Level", "에스파", R.drawable.img_album_exp, info = "2021.05.25 | 댄스 팝"),
+            Album(3, "Butter", "BTS", R.drawable.img_album_exp, info = "2021.05.25 | 댄스 팝"),
+            Album(4, "Weekend", "태연", R.drawable.img_album_exp2, info = "2021.05.25 | 댄스 팝"),
+            Album(5, "Bloom", "TheBoyz", R.drawable.img_album_exp, info = "2021.05.25 | 댄스 팝")
         )
 
         CoroutineScope(Dispatchers.IO).launch {

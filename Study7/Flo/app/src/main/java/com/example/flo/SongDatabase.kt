@@ -6,16 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [Album::class, Song::class, LikeAlbum::class, LikeSong::class],
-    version = 4,
+    entities = [Album::class, Song::class, LikeAlbum::class, LikeSong::class, User::class],
+    version = 5,
     exportSchema = false
 )
-
 abstract class SongDatabase : RoomDatabase() {
+
     abstract fun albumDao(): AlbumDao
     abstract fun songDao(): SongDao
     abstract fun likeAlbumDao(): LikeAlbumDao
     abstract fun likeSongDao(): LikeSongDao
+    abstract fun userDao(): UserDao
 
     companion object {
         @Volatile
@@ -27,8 +28,7 @@ abstract class SongDatabase : RoomDatabase() {
                     context.applicationContext,
                     SongDatabase::class.java,
                     "song-database"
-                )
-                    .fallbackToDestructiveMigration()
+                ).fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance

@@ -8,6 +8,13 @@ interface SongDao {
     @Insert
     fun insertAll(songs: List<Song>)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertLikeSong(likeSong: LikeSong)
+
+    @Query("DELETE FROM LikeSong WHERE userId = :userId AND songId = :songId")
+    fun deleteLikeSong(userId: Int, songId: Int)
+
+
     @Query("SELECT * FROM SongTable")
     fun getSongs(): List<Song>
 

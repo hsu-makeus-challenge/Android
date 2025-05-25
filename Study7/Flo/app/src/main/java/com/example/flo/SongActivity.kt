@@ -120,7 +120,20 @@ class SongActivity : AppCompatActivity() {
             val updatedSong = song.copy(isLike = isLiked)
 
             CoroutineScope(Dispatchers.IO).launch {
-                SongDatabase.getInstance(this@SongActivity).songDao().update(updatedSong)
+                val db = SongDatabase.getInstance(this@SongActivity)
+                val userId = getSharedPreferences("auth", MODE_PRIVATE).getInt("jwt", -1)
+
+                // Song 테이블 업데이트
+                db.songDao().update(updatedSong)
+
+                // LikeSong 테이블 업데이트
+                if (userId != -1) {
+                    if (isLiked) {
+                        db.songDao().insertLikeSong(LikeSong(userId = userId, songId = updatedSong.id))
+                    } else {
+                        db.songDao().deleteLikeSong(userId = userId, songId = updatedSong.id)
+                    }
+                }
             }
 
             song = updatedSong
