@@ -3,17 +3,12 @@ package com.example.flo
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.example.flo.databinding.ActivityLoginBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), LoginView {
 
     lateinit var binding: ActivityLoginBinding
 
@@ -22,7 +17,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 1. 이메일 도메인 드롭다운 설정
         val emailDomains = listOf("naver.com", "gmail.com", "hanmail.net", "daum.net", "kakao.com")
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, emailDomains)
         binding.loginDirectInputEt.setAdapter(adapter)
@@ -31,18 +25,14 @@ class LoginActivity : AppCompatActivity() {
             binding.loginDirectInputEt.showDropDown()
         }
 
-        // 2. 로그인 버튼 클릭
         binding.loginSignInBtn.setOnClickListener {
             login()
         }
 
-        // 3. 회원가입 이동
         binding.loginSignUpTv.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
 
-        // 4. 비밀번호 토글
         var passwordVisible = false
         binding.loginHidePasswordIv.setOnClickListener {
             passwordVisible = !passwordVisible
@@ -50,11 +40,9 @@ class LoginActivity : AppCompatActivity() {
                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             else
                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-
             binding.loginPasswordEt.setSelection(binding.loginPasswordEt.text.length)
         }
 
-        // 5. X 버튼 눌러 종료
         binding.loginCloseIv.setOnClickListener {
             finish()
             overridePendingTransition(R.anim.none, R.anim.slide_down)
@@ -82,31 +70,30 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val email = "$id@$domain"
-        val songDB = SongDatabase.getInstance(this)!!
+        val request = LoginRequest(email, pwd)
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            val user = songDB.userDao().getUser(email, pwd)
-
-            withContext(Dispatchers.Main) {
-                if (user != null) {
-                    Log.d("LoginActivity", "로그인 성공: ${user.id}")
-                    saveJwt(user.id)
-                    startMainActivity()
-                } else {
-                    Toast.makeText(this@LoginActivity, "회원 정보가 존재하지 않습니다", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+        val authService = AuthService()
+        authService.setLoginView(this)
+        authService.login(request)
     }
 
-    private fun saveJwt(jwt: Int) {
+    private fun saveJwt(jwt: String) {
         val spf = getSharedPreferences("auth", MODE_PRIVATE)
-        spf.edit().putInt("jwt", jwt).apply()
+        spf.edit().putString("jwt", jwt).apply()
     }
 
     private fun startMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    override fun onLoginSuccess(code: Int, result: MemberInfo) {
+        saveJwt(result.accessToken)
+        startMainActivity()
+    }
+
+    override fun onLoginFailure() {
+        Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
     }
 }
