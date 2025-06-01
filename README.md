@@ -1,2 +1,1 @@
-# Android
-HSU UMC 8th Android
+7주차 과제 - 미니오
