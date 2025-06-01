@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Mission3</string>
+    <string name="newjeans_desc">NewJeans 이미지</string>
+    <string name="banner_image_desc">배너 이미지</string>
+    <string name="home">Home</string>
+    <string name="album">Album</string>
+    <string name="audio">Audio</string>
+    <string name="search">Search</string>
+    <string name="mymusic">My Music</string>
+    <string name="menu">Menu</string>
+    <string name="play_pause">Play/Pause</string>
+</resources>
