@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="31dp">
+
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/closebutton"
+        android:layout_width="21dp"
+        android:layout_height="20dp"
+        android:elevation="2dp"
+        android:layout_marginLeft="350dp"
+        android:layout_marginBottom="25dp"
+        android:foregroundGravity="right"
+        android:src="@drawable/btn_actionbar_close"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewbanner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageViewbanner"
+        app:layout_constraintTop_toTopOf="@+id/imageViewbanner" />
+    <ImageView
+        android:id="@+id/imageViewbanner"
+        android:layout_width="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_height="50dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_home_viewpager_exp"
+        app:layout_constraintBottom_toTopOf="@+id/music_playback_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <SeekBar
+        android:id="@+id/seekBar2"
+        android:elevation="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/music_playback_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/music_playback_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_color"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/song_title"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_weight="0.5"
+            android:text="제목"
+            android:textColor="@android:color/black"
+            android:textSize="10dp" />
+        <TextView
+            android:id="@+id/song_singer"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_weight="1"
+            android:text="가수"
+            android:textColor="@android:color/black"
+            android:textSize="10dp" />
+        <ImageView
+            android:id="@+id/btn_previous"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:src="@drawable/btn_miniplayer_previous"
+            android:layout_gravity="right"
+            android:foregroundGravity="right"
+            />
+        <ImageView
+
+            android:id="@+id/startmain"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:src="@drawable/btn_miniplayer_play"
+            android:layout_gravity="right"
+            android:foregroundGravity="right"
+            />
+        <ImageView
+            android:id="@+id/btn_next"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:src="@drawable/btn_miniplayer_next"
+            android:layout_gravity="right"
+            android:foregroundGravity="right"
+            />
+
+        <ImageView
+            android:id="@+id/listimage"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:src="@drawable/btn_miniplayer_go_list"
+            android:layout_gravity="right"
+            android:foregroundGravity="right"
+            />
+
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:menu="@menu/bottom_navigation"
+        app:itemIconTint="@color/gray_color"
+        app:itemTextColor="@color/gray_color"
+        app:labelVisibilityMode="labeled"
+        app:itemBackground="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
