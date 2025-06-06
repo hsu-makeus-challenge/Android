@@ -3,10 +3,12 @@ package com.example.flo
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivityLoginBinding
+import com.kakao.sdk.user.UserApiClient
 
 class LoginActivity : AppCompatActivity(), LoginView {
 
@@ -25,9 +27,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
             binding.loginDirectInputEt.showDropDown()
         }
 
-        binding.loginSignInBtn.setOnClickListener {
-            login()
-        }
+        binding.loginSignInBtn.setOnClickListener { login() }
 
         binding.loginSignUpTv.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
@@ -36,10 +36,10 @@ class LoginActivity : AppCompatActivity(), LoginView {
         var passwordVisible = false
         binding.loginHidePasswordIv.setOnClickListener {
             passwordVisible = !passwordVisible
-            binding.loginPasswordEt.inputType = if (passwordVisible)
-                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            else
-                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            binding.loginPasswordEt.inputType =
+                if (passwordVisible) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+
             binding.loginPasswordEt.setSelection(binding.loginPasswordEt.text.length)
         }
 
@@ -47,7 +47,40 @@ class LoginActivity : AppCompatActivity(), LoginView {
             finish()
             overridePendingTransition(R.anim.none, R.anim.slide_down)
         }
+
+        binding.loginKakakoLoginIv.setOnClickListener {
+            loginWithKakao()
+        }
     }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        val uri = intent?.data
+        Log.d("KAKAO", "onNewIntent 실행됨: $uri")
+
+        if (uri != null && uri.toString().startsWith("kakao")) {
+            val code = uri.getQueryParameter("code")
+            if (code != null) {
+                Log.d("KAKAO", "인가 코드: $code")
+
+                // 인가 코드를 통해 accessToken 발급
+                com.kakao.sdk.auth.AuthApiClient.instance.issueAccessToken(code) { token, error ->
+                    if (error != null) {
+                        Log.e("KAKAO", "토큰 발급 실패: ${error.localizedMessage}")
+                    } else if (token != null) {
+                        Log.d("KAKAO", "토큰 발급 성공: ${token.accessToken}")
+                        fetchUserInfo()
+                    }
+                }
+            } else {
+                val error = uri.getQueryParameter("error")
+                Log.e("KAKAO", "인가 코드 획득 실패: $error")
+            }
+        }
+    }
+
+
 
     private fun login() {
         val id = binding.loginIdEt.text.toString().trim()
@@ -95,5 +128,52 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
     override fun onLoginFailure() {
         Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun loginWithKakao() {
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
+            UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+                if (error != null) {
+                    Log.e("KAKAO", "카카오톡 로그인 실패: ${error.message}")
+                    loginWithKakaoAccount()
+                } else if (token != null) {
+                    Log.d("KAKAO", "카카오톡 로그인 성공: ${token.accessToken}")
+                    fetchUserInfo()
+                }
+            }
+        } else {
+            loginWithKakaoAccount()
+        }
+    }
+
+    private fun loginWithKakaoAccount() {
+        UserApiClient.instance.loginWithKakaoAccount(this) { token, error ->
+            if (error != null) {
+                Log.e("KAKAO", "카카오 계정 로그인 실패: ${error.message}")
+                Toast.makeText(this, "카카오 로그인 실패", Toast.LENGTH_SHORT).show()
+            } else if (token != null) {
+                Log.d("KAKAO", "카카오 계정 로그인 성공: ${token.accessToken}")
+                fetchUserInfo()
+            }
+        }
+    }
+
+    private fun fetchUserInfo() {
+        UserApiClient.instance.me { user, error ->
+            if (user != null) {
+                val nickname = user.kakaoAccount?.profile?.nickname ?: "닉네임 없음"
+                val email = user.kakaoAccount?.email ?: "이메일 없음"
+                val profileImage = user.kakaoAccount?.profile?.profileImageUrl ?: "이미지 없음"
+
+                Log.d("KAKAO", "사용자 정보: $nickname / $email / $profileImage")
+
+                // 실제 서버 로그인 처리 대신 임시로 JWT 저장
+                saveJwt("KAKAO_FAKE_JWT")
+                startMainActivity()
+            } else {
+                Log.e("KAKAO", "사용자 정보 요청 실패: ${error?.message}")
+                Toast.makeText(this, "사용자 정보 요청 실패", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
